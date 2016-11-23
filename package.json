@@ -1,0 +1,24 @@
+{
+  "name": "dom-element-watcher",
+  "version": "1.0.0",
+  "description": "Watches for DOM elements, invoking a callback if and when they become available",
+  "main": "dist/dom-element-watcher.js",
+  "scripts": {
+    "browserify-native": "$(npm bin)/browserify ./src/DOMElementWatcher.js > ./dist/DOMElementWatcher.js",
+    "browserify-polyfill": "$(npm bin)/browserify ./src/DOMElementWatcher.IE9-10.js > ./dist/DOMElementWatcher.IE9-10.js",
+    "minify-native": "$(npm bin)/uglifyjs ./dist/DOMElementWatcher.js --mangle --compress -o ./dist/DOMElementWatcher.min.js",
+    "minify-polyfill": "$(npm bin)/uglifyjs ./dist/DOMElementWatcher.IE9-10.js --mangle --compress -o ./dist/DOMElementWatcher.IE9-10.min.js",
+    "build-native": "npm run browserify-native && npm run minify-native",
+    "build-polyfill": "npm run browserify-polyfill && npm run minify-polyfill",
+    "build": "npm run build-native && npm run build-polyfill"
+  },
+  "author": "Mike Chamberlain",
+  "license": "BSD",
+  "devDependencies": {
+    "browserify": "^13.1.1",
+    "uglify-js": "^2.7.4"
+  },
+  "dependencies": {
+    "webcomponents.js": "git+https://github.com/webcomponents/webcomponentsjs.git"
+  }
+}
