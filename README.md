@@ -1,7 +1,7 @@
 # DOMElementWatcher
 
-Watches for DOM elements, invoking a callback as and when they are added to the DOM. 
-Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to listen for new elements.
+Watches for DOM elements matching a given CSS selector, invoking a callback as and when they are added to the DOM. 
+Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to listen for new elements. 
 Polyfilled version available for IE9-10.
 
 ## Installation
@@ -25,7 +25,7 @@ eg:
 <script src="./node_modules/dom-element-watcher/DOMElementWatcher.min.js"></script>
 ```
 
-## Example usage
+## Usage
 
 ```javascript
 // create the watcher
@@ -34,13 +34,14 @@ var elementWatcher = new DOMElementWatcher();
 // start listening for mutations
 elementWatcher.startWatching();
 
-// for all DIV elements, either existing now or added in the future, set their background color to red
-elementWatcher.when('div', -1, function (element) {
+// for all DIV elements with class="my-class", either existing now or added to the DOM in the future, 
+// set their background color to red
+elementWatcher.when('div.my-class', -1, function (element) {
     element.style.background = 'red';
 });
 
 // then perhaps later...
-elementWatcher.stopListening()
+elementWatcher.stopWatching()
 
 ```
 
@@ -49,11 +50,12 @@ elementWatcher.stopListening()
 ### `.when(selector, index, callback)`
 
 Observes elements matching the selector with the given index. Executes the callback once for each element.
-If a matching element is already present in the DOM, the callback will be executed immediately.
+If a matching element is already present in the DOM, the callback will be executed against it immediately.
 
-`selector`: A CSS selector against which to match elements.
-`index`: In the case where multiple elements are matched by the selector, this restricts the match to this array index. Pass in `-1` to match all elements.
-`callback`: The function to call when a matched element is added to the DOM. The callback is passed the matched element as its only argument.
+- `selector`: A CSS selector against which to match elements.
+- `index`: In the case where multiple elements are matched by the selector, this restricts the match to this array index. Pass in `-1` to match all elements.
+- `callback`: The function to call when a matched element is added to the DOM. The callback is passed the matched 
+[HTMLElement](https://developer.mozilla.org/en/docs/Web/API/HTMLElement) as its only argument.
 
 ### `.startWatching()`
 
@@ -72,4 +74,4 @@ npm install
 npm run build
 ```
 
-Outputs built versions to `/dist`.
+Outputs built versions to `./dist`.
