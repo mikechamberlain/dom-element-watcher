@@ -17,3 +17,12 @@ elementWatcher.when('div', -1, function (element) {
 });
 
 ```
+
+## Build
+
+```
+npm install
+npm run build
+```
+
+Outputs built versions to `/dist`.
