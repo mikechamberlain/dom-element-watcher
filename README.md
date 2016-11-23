@@ -6,13 +6,13 @@ Polyfilled version available for IE9-10.
 
 ## Installation
 
-```
+```bash
 npm install dom-element-watcher --save
 ```
 
 Then add a reference to one of:
 
-```
+```bash
 ./node_modules/dom-element-watcher/DOMElementWatcher.js             # native (~4KB)
 ./node_modules/dom-element-watcher/DOMElementWatcher.min.js         # native, minified (<1KB)
 ./node_modules/dom-element-watcher/DOMElementWatcher.IE9-10.js      # polyfilled for old IE (~24KB)
@@ -21,13 +21,13 @@ Then add a reference to one of:
 
 eg:
 
-```
+```html
 <script src="./node_modules/dom-element-watcher/DOMElementWatcher.min.js"></script>
 ```
 
 ## Example usage
 
-```
+```javascript
 // create the watcher
 var elementWatcher = new DOMElementWatcher();
 
@@ -65,7 +65,7 @@ Stops watching for DOM Mutations.
 
 ## Development
 
-```
+```bash
 git clone https://github.com/mikechamberlain/dom-element-watcher.git
 cd dom-element-watcher
 npm install
