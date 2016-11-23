@@ -15,10 +15,10 @@ npm install dom-element-watcher --save
 Then add a reference to one of:
 
 ```bash
-./node_modules/dom-element-watcher/DOMElementWatcher.js             # native (~4KB)
-./node_modules/dom-element-watcher/DOMElementWatcher.min.js         # native, minified (<1KB)
-./node_modules/dom-element-watcher/DOMElementWatcher.IE9-10.js      # polyfilled for old IE (~24KB)
-./node_modules/dom-element-watcher/DOMElementWatcher.IE9-10.min.js  # polyfilled for old IE, minified (~7KB)
+./node_modules/dom-element-watcher/dist/DOMElementWatcher.js             # native (~4KB)
+./node_modules/dom-element-watcher/dist/DOMElementWatcher.min.js         # native, minified (<1KB)
+./node_modules/dom-element-watcher/dist/DOMElementWatcher.IE9-10.js      # polyfilled for old IE (~24KB)
+./node_modules/dom-element-watcher/dist/DOMElementWatcher.IE9-10.min.js  # polyfilled for old IE, minified (~7KB)
 ```
 
 eg:
