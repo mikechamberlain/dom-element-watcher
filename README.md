@@ -4,7 +4,9 @@ A super simple library that watches for changes to the DOM. Give it a CSS select
 becomes available in the DOM. 
 Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to watch for new elements. 
 
-Tested natively in Chrome, Firefox, Safari, Edge and IE11.  Polyfilled version available for IE9-10.
+Tested in Chrome, Firefox, Safari, Edge and IE 9-11.
+
+IE 9 and 10 require polyfills for `WeakMap` and `MutationObserver` (pre-built versions below).
 
 ## Installation
 
