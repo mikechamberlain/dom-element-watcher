@@ -1,6 +1,5 @@
 (function (window) {
     /**
-     }
      * Watches for DOM elements, invoking a callback if and when they become available.
      */
     window.DOMElementWatcher = function () {
