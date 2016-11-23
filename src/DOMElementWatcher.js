@@ -7,18 +7,29 @@
         var MODIFIED_KEY = '__DOMElementWatcherModified__';
         var observed = [];
         var observer;
+        var watching = false;
+        var initialRun = true;
 
         /**
          * Starts watching for elements.
          */
         function startWatching() {
-            observer = observer || new MutationObserver(onDomMutation);
+            if (watching) {
+                return;
+            }
+            
+            watching = true;
+            observer = observer || new MutationObserver(tryInvokeAll);
             observer.observe(window.document.documentElement, {
                 childList: true,
                 subtree: true
             });
-        }
 
+            if (initialRun) {
+                initialRun = false;
+                tryInvokeAll();
+            }
+        }
         this.startWatching = startWatching;
 
         /**
@@ -26,8 +37,8 @@
          */
         function stopWatching() {
             observer && observer.disconnect();
+            watching = false;
         }
-
         this.stopWatching = stopWatching;
 
         /**
@@ -46,9 +57,21 @@
                 callback: callback
             });
 
-            // invoke callback for elements currently in the DOM
-            tryInvokeNow(selector, index, callback);
+            if (watching) {
+                // invoke callback for elements currently in the DOM
+                tryInvokeNow(selector, index, callback);
+            }
         };
+
+        /**
+         * Called upon any DOM mutation.  Iterates through our watched selectors and tries to invoke the callback.
+         */
+        function tryInvokeAll() {
+            // check the DOM for elements matching a stored selector
+            observed.forEach(function (listener) {
+                tryInvokeNow(listener.selector, listener.index, listener.callback);
+            });
+        }
 
         /**
          * Queries the DOM for given selector / index and invokes the callback if it has not been invoked before for this
@@ -58,8 +81,11 @@
          * @param {Function} callback
          */
         function tryInvokeNow(selector, index, callback) {
-            // make sure we do not later observe any mutations as a result of our own changes
-            stopWatching();
+            var wasWatching = watching;
+            if (wasWatching) {
+                // make sure we do not later observe any mutations as a result of our own changes
+                stopWatching();
+            }
 
             var elements = window.document.querySelectorAll(selector);
             for (var i = 0; i < elements.length; i++) {
@@ -77,17 +103,10 @@
                 element[MODIFIED_KEY][selector][callback] = element[MODIFIED_KEY][selector][callback] || true;
                 callback(element);
             }
-            startWatching();
-        }
 
-        /**
-         * Called upon any DOM mutation.  Iterates through our watched selectors and tries to invoke the callback.
-         */
-        function onDomMutation() {
-            // check the DOM for elements matching a stored selector
-            observed.forEach(function (listener) {
-                tryInvokeNow(listener.selector, listener.index, listener.callback);
-            });
+            if (wasWatching) {
+                startWatching();
+            }
         }
     };
 })(window);
