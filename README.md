@@ -1,7 +1,7 @@
 # DOMElementWatcher
 
-A super simple library that watches for changes to the DOM. Give it a CSS selector, and it will call you back whenever a matching element
-becomes available in the DOM. 
+A super simple library that watches for changes to the DOM. Give it one or more CSS selectors, and it will call you back whenever a matching element becomes available.
+
 Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to watch for new elements. 
 
 Tested in Chrome, Firefox, Safari, Edge and IE 9-11.
@@ -53,21 +53,21 @@ elementWatcher.stopWatching()
 
 ### `.when(selector, index, callback)`
 
-Observes elements matching the selector with the given index. Executes the callback once for each element.
-If a matching element is already present in the DOM, the callback will be executed against it immediately.
+Adds the selector to the watchlist,. Once `startWatching()` is called, the callback will be executed a maximum of once on each matched
+element.  If a matching element is already present in the DOM, the callback will be executed immediately.
 
 - `selector`: A CSS selector against which to match elements.
 - `index`: In the case where multiple elements are matched by the selector, this restricts the match to this array index. Pass in `-1` to match all elements.
-- `callback`: The function to call when a matched element is added to the DOM. The callback is passed the matched 
-[HTMLElement](https://developer.mozilla.org/en/docs/Web/API/HTMLElement) as its only argument.
+- `callback`: The function to call when an element is matched. It is passed the matched 
+[HTMLElement](https://developer.mozilla.org/en/docs/Web/API/HTMLElement) as its argument.
 
 ### `.startWatching()`
 
-Starts watching for DOM Mutations. 
+Starts watching the DOM and executing callbacks.
 
 ### `.stopWatching()`
 
-Stops watching for DOM Mutations.
+Stops watching the DOM and excuting callbacks.
 
 ## Development
 
