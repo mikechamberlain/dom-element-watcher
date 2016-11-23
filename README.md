@@ -22,7 +22,7 @@ Then add a reference to one of:
 eg:
 
 ```
-<script src="./node_modules/dom-element-watcher/DOMElementWatcher.min.js></script>
+<script src="./node_modules/dom-element-watcher/DOMElementWatcher.min.js"></script>
 ```
 
 ## Example usage
