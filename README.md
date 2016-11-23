@@ -75,10 +75,5 @@ Stops watching for DOM Mutations.
 git clone https://github.com/mikechamberlain/dom-element-watcher.git
 cd dom-element-watcher
 npm install
-```
-
-To rebuild:
-
-```bash
 npm run build
 ```

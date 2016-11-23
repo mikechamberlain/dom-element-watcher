@@ -1,6 +1,6 @@
 {
   "name": "dom-element-watcher",
-  "version": "1.0.16",
+  "version": "1.0.22",
   "description": "A super simple library that watches for changes to the DOM",
   "main": "dist/DOMElementWatcher.js",
   "repository" : {
@@ -8,21 +8,21 @@
     "url" : "https://github.com/mikechamberlain/dom-element-watcher.git"
   },
   "scripts": {
-    "postinstall": "npm run build",
-
     "browserify-polyfill": "$(npm bin)/browserify ./src/DOMElementWatcher.IE9-10.js > ./dist/DOMElementWatcher.IE9-10.js",
     "minify-polyfill": "$(npm bin)/uglifyjs ./dist/DOMElementWatcher.IE9-10.js --mangle --compress > ./dist/DOMElementWatcher.IE9-10.min.js",
-    "build-polyfill": "npm run browserify-polyfill |  npm run minify-polyfill",
+    "build-polyfill": "npm run browserify-polyfill && npm run minify-polyfill",
 
     "minify-native": "$(npm bin)/uglifyjs ./dist/DOMElementWatcher.js --mangle --compress > ./dist/DOMElementWatcher.min.js",
     "build-native": "cp ./src/DOMElementWatcher.js ./dist && npm run minify-native",
 
     "clean": "rm -rf ./dist && mkdir -p ./dist",
-    "build": "npm run clean && npm run build-polyfill && npm run build-native"
+    "build": "npm run clean && npm run build-polyfill && npm run build-native",
+
+    "prepublish": "npm run build"
   },
   "author": "Mike Chamberlain",
   "license": "BSD-2-Clause",
-  "dependencies": {
+  "devDependencies": {
     "browserify": "^13.1.1",
     "uglify-js": "^2.7.4",
     "webcomponents.js": "git+https://github.com/webcomponents/webcomponentsjs.git"
