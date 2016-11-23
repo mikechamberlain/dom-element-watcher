@@ -6,7 +6,7 @@ Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/Mutation
 
 Tested in Chrome, Firefox, Safari, Edge and IE 9-11.
 
-IE 9 and 10 require polyfills for `WeakMap` and `MutationObserver` (pre-built versions below).
+IE 9 and 10 require polyfills for `WeakMap` and `MutationObserver` (pre-built versions included - see below).
 
 ## Installation
 
@@ -26,7 +26,7 @@ Then add a reference to one of:
 eg:
 
 ```html
-<script src="./node_modules/dom-element-watcher/DOMElementWatcher.min.js"></script>
+<script src="./node_modules/dom-element-watcher/dist/DOMElementWatcher.min.js"></script>
 ```
 
 ## Usage
