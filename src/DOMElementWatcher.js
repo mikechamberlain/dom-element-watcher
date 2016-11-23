@@ -47,7 +47,7 @@
             });
 
             // invoke callback for elements currently in the DOM
-            invokeNow(selector, index, callback);
+            tryInvokeNow(selector, index, callback);
         };
 
         /**
@@ -57,7 +57,7 @@
          * @param {number} index
          * @param {Function} callback
          */
-        function invokeNow(selector, index, callback) {
+        function tryInvokeNow(selector, index, callback) {
             // make sure we do not later observe any mutations as a result of our own changes
             stopWatching();
 
@@ -81,12 +81,12 @@
         }
 
         /**
-         * Called upon any DOM mutation.  Iterates through our watched selectors and invokes the callback.
+         * Called upon any DOM mutation.  Iterates through our watched selectors and tries to invoke the callback.
          */
         function onDomMutation() {
             // check the DOM for elements matching a stored selector
             observed.forEach(function (listener) {
-                invokeNow(listener.selector, listener.index, listener.callback);
+                tryInvokeNow(listener.selector, listener.index, listener.callback);
             });
         }
     };

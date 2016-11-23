@@ -1,6 +1,6 @@
 {
   "name": "dom-element-watcher",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Watches for DOM elements, invoking a callback if and when they become available",
   "main": "dist/DOMElementWatcher.js",
   "repository" : {
