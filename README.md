@@ -73,7 +73,10 @@ Stops watching for DOM Mutations.
 git clone https://github.com/mikechamberlain/dom-element-watcher.git
 cd dom-element-watcher
 npm install
-npm run build
 ```
 
-Outputs built versions to `./dist`.
+To rebuild:
+
+```bash
+npm run build
+```
