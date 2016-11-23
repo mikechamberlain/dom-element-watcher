@@ -1,6 +1,7 @@
 # DOMElementWatcher
 
-Watches for DOM elements matching a given CSS selector, invoking a callback as and when they are added to the DOM. 
+A super simple library that watches for changes to the DOM. Give it a CSS selector, and it will call you back whenever a matching element
+becomes available in the DOM. 
 Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to listen for new elements. 
 
 Tested natively in Chrome, Firefox, Safari, Edge and IE11.  Polyfilled version available for IE9-10.
