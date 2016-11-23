@@ -1,7 +1,7 @@
 {
   "name": "dom-element-watcher",
-  "version": "1.0.10",
-  "description": "Watches for DOM elements, invoking a callback if and when they become available",
+  "version": "1.0.11",
+  "description": "A super simple library that watches for changes to the DOM",
   "main": "dist/DOMElementWatcher.js",
   "repository" : {
     "type" : "git",
