@@ -53,7 +53,7 @@ elementWatcher.stopWatching()
 
 ### `.when(selector, index, callback)`
 
-Adds the selector to the watchlist,. Once `startWatching()` is called, the callback will be executed a maximum of once on each matched
+Adds the selector to the watchlist. Once `startWatching()` is called, the callback will be executed a maximum of once on each matched
 element.  If a matching element is already present in the DOM, the callback will be executed immediately.
 
 - `selector`: A CSS selector against which to match elements.
