@@ -2,7 +2,7 @@
 
 A super simple library that watches for changes to the DOM. Give it a CSS selector, and it will call you back whenever a matching element
 becomes available in the DOM. 
-Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to listen for new elements. 
+Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to watch for new elements. 
 
 Tested natively in Chrome, Firefox, Safari, Edge and IE11.  Polyfilled version available for IE9-10.
 
@@ -33,7 +33,7 @@ eg:
 // create the watcher
 var elementWatcher = new DOMElementWatcher();
 
-// start listening for mutations
+// start watcing for mutations
 elementWatcher.startWatching();
 
 // for all DIV elements with class="my-class", either existing now or added to the DOM in the future, 
