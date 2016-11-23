@@ -2,7 +2,8 @@
 
 Watches for DOM elements matching a given CSS selector, invoking a callback as and when they are added to the DOM. 
 Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to listen for new elements. 
-Polyfilled version available for IE9-10.
+
+Tested natively in Chrome, Firefox, Safari, Edge and IE11.  Polyfilled version available for IE9-10.
 
 ## Installation
 
