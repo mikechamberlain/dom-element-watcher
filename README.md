@@ -1,8 +1,6 @@
 # DOMElementWatcher
 
-A super simple library that watches for changes to the DOM. Give it one or more CSS selectors, and it will call you back whenever a matching element becomes available.
-
-Uses the [MutationObserver API](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to watch for new elements. 
+A tiny and super simple library that watches for changes to the DOM. Give it one or more CSS selectors, and it will call you back with matching elements as and when they become available.
 
 Tested in Chrome, Firefox, Safari, Edge and IE 9-11.
 
@@ -57,7 +55,7 @@ elementWatcher.stopWatching()
 Adds the selector to the watchlist. Once `startWatching()` is called, the callback will be executed a maximum of once on each matched
 element.  If a matching element is already present in the DOM, the callback will be executed immediately.
 
-- `selector`: A CSS selector against which to match elements.
+- `selector`: A CSS selector against which to match elements. Selectors can be arbitrarily complex (whatever is supported by the browser's native `querySelectorAll()`).
 - `index`: In the case where multiple elements are matched by the selector, this restricts the match to this array index. Pass in `-1` to match all elements.
 - `callback`: The function to call when an element is matched. It is passed the matched 
 [HTMLElement](https://developer.mozilla.org/en/docs/Web/API/HTMLElement) as its argument.
@@ -78,3 +76,6 @@ cd dom-element-watcher
 npm install
 npm run build
 ```
+## See also
+
+The [mutation-summary](https://github.com/rafaelw/mutation-summary) might also be of interest.  It's much bigger but has lots more features, and gives you a full breakdown of exactly how the DOM changed.
