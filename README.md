@@ -2,11 +2,12 @@
 
 A super simple library that watches for changes to the DOM. Give it one or more CSS selectors, and it will call you back whenever a matching element becomes available.
 
-Uses a [MutationObserver](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to watch for new elements. 
+Uses the [MutationObserver API](https://developer.mozilla.org/en/docs/Web/API/MutationObserver) to watch for new elements. 
 
 Tested in Chrome, Firefox, Safari, Edge and IE 9-11.
 
-IE 9 and 10 require polyfills for `WeakMap` and `MutationObserver` (pre-built versions included - see below).
+IE 9 and 10 require [polyfills for WeakMap](https://github.com/webcomponents/webcomponentsjs/blob/master/src/WeakMap/WeakMap.js)
+and [MutationObserver](https://github.com/webcomponents/webcomponentsjs/blob/master/src/MutationObserver/MutationObserver.js) (pre-built versions included - see below).
 
 ## Installation
 
