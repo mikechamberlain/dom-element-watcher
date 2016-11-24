@@ -5,50 +5,34 @@
     window.DOMElementWatcher = function () {
         var MODIFIED_KEY = '__DOMElementWatcherModified__';
         var observed = [];
-        var observer;
-        var watching = false;
-        var initialRun = true;
+        var observer = new MutationObserver(tryInvokeAll);
+        var watching = true;
+        var paused = false;
 
-        /**
-         * Starts watching for elements.
-         */
-        function startWatching() {
+        start();
+
+        function start() {
             if (watching) {
                 return;
             }
-            
             watching = true;
-            observer = observer || new MutationObserver(tryInvokeAll);
             observer.observe(window.document.documentElement, {
                 childList: true,
                 subtree: true
             });
-
-            if (initialRun) {
-                initialRun = false;
-                tryInvokeAll();
-            }
         }
-        this.startWatching = startWatching;
 
-        /**
-         * Stops watching for elements.
-         */
-        function stopWatching() {
-            observer && observer.disconnect();
+        function stop() {
+            observer.disconnect();
             watching = false;
         }
-        this.stopWatching = stopWatching;
 
-        /**
-         * Invokes the callback on all elements matching the selector, either now or if they become available in the future.
-         * @selector {string} The CSS selector
-         * @index {number} The zero-based index of the selector results against which to invoke the callback, or -1 for all
-         * selected elements.
-         * @callback {Function} The callback to execute if and when the element becomes available. The callback will be executed
-         * only once for each element per selector per callback.
-         */
-        this.when = function (selector, index, callback) {
+        function when(selector, index, callback) {
+            if (!watching) {
+                console.warn('Attempt to call when() on a permanently stopped DOMElementWatcher.');
+                return;
+            }
+
             // store to check against future DOM mutations
             observed.push({
                 selector: selector,
@@ -56,15 +40,10 @@
                 callback: callback
             });
 
-            if (watching) {
-                // invoke callback for elements currently in the DOM
-                tryInvokeNow(selector, index, callback);
-            }
-        };
+            // invoke callback for elements currently in the DOM
+            tryInvokeNow(selector, index, callback);
+        }
 
-        /**
-         * Called upon any DOM mutation.  Iterates through our watched selectors and tries to invoke the callback.
-         */
         function tryInvokeAll() {
             // check the DOM for elements matching a stored selector
             observed.forEach(function (listener) {
@@ -72,19 +51,9 @@
             });
         }
 
-        /**
-         * Queries the DOM for given selector / index and invokes the callback if it has not been invoked before for this
-         * element.
-         * @param {string} selector
-         * @param {number} index
-         * @param {Function} callback
-         */
         function tryInvokeNow(selector, index, callback) {
-            var wasWatching = watching;
-            if (wasWatching) {
-                // make sure we do not later observe any mutations as a result of our own changes
-                stopWatching();
-            }
+            // ensure we don't end up reacting to our own changes
+            stop();
 
             var elements = window.document.querySelectorAll(selector);
             for (var i = 0; i < elements.length; i++) {
@@ -100,12 +69,43 @@
                 element[MODIFIED_KEY] = element[MODIFIED_KEY] || {};
                 element[MODIFIED_KEY][selector] = element[MODIFIED_KEY][selector] || {};
                 element[MODIFIED_KEY][selector][callback] = element[MODIFIED_KEY][selector][callback] || true;
+
+                if (paused) {
+                    return;
+                }
                 callback(element);
             }
 
-            if (wasWatching) {
-                startWatching();
-            }
+            start();
         }
+
+        /**
+         * Permanently stops watching for changes.
+         */
+        this.stop = stop;
+
+        /**
+         * Temporarily stops watching for changes.
+         */
+        this.pause = function() {
+            paused = true;
+        };
+
+        /**
+         * Resumes watching for changes.
+         */
+        this.unpause = function() {
+            paused = false;
+        };
+
+        /**
+         * Invokes the callback on all elements matching the selector, either now or if they become available in the future.
+         * @selector {string} The CSS selector.
+         * @index {number} The zero-based index of the selector results against which to invoke the callback, or -1 for all
+         * selected elements.
+         * @callback {Function} The callback to execute if and when the element becomes available. The callback will be executed
+         * only once for each element per selector per callback.
+         */
+        this.when = when;
     };
 })(window);
