@@ -57,7 +57,7 @@ elementWatcher.stopWatching()
 Adds the selector to the watchlist. Once `startWatching()` is called, the callback will be executed a maximum of once on each matched
 element.  If a matching element is already present in the DOM, the callback will be executed immediately.
 
-- `selector`: A CSS selector against which to match elements.
+- `selector`: A CSS selector against which to match elements. Any valid selector supported (or rather, whatever the browser's native `querySelectorAll()` supports).
 - `index`: In the case where multiple elements are matched by the selector, this restricts the match to this array index. Pass in `-1` to match all elements.
 - `callback`: The function to call when an element is matched. It is passed the matched 
 [HTMLElement](https://developer.mozilla.org/en/docs/Web/API/HTMLElement) as its argument.
