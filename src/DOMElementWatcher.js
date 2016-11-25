@@ -27,9 +27,16 @@
             watching = false;
         }
 
-        function when(selector, index, callback) {
+        function warnIfStopped() {
             if (!watching) {
-                console.warn('Attempt to call when() on a permanently stopped DOMElementWatcher.');
+                console.warn('Attempt to call against a permanently stopped DOMElementWatcher.');
+                return true;
+            }
+            return false;
+        }
+
+        function when(selector, index, callback) {
+            if (warnIfStopped()) {
                 return;
             }
 
@@ -71,7 +78,7 @@
                 element[MODIFIED_KEY][selector][callback] = element[MODIFIED_KEY][selector][callback] || true;
 
                 if (paused) {
-                    return;
+                    continue;
                 }
                 callback(element);
             }
@@ -88,13 +95,19 @@
          * Temporarily stops watching for changes.
          */
         this.pause = function() {
+            if (warnIfStopped()) {
+                return;
+            }
             paused = true;
         };
 
         /**
          * Resumes watching for changes.
          */
-        this.unpause = function() {
+        this.resume = function() {
+            if (warnIfStopped()) {
+                return;
+            }
             paused = false;
         };
 

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOMElementWatcher demo</title>
+    <script src="./dist/DOMElementWatcher.IE9-10.js"></script>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        div {
+            box-sizing: border-box;
+            margin-bottom: 5px;
+            height: 50px;
+            padding: 10px;
+            color: white;
+        }
+
+        button {
+            padding: 5px 10px;
+            font-weight: bold;
+            font-size: 12px;
+        }
+
+        #moreButtons {
+            display:none;
+        }
+
+        #main {
+            display: none;
+        }
+
+        code {
+            background: #333;
+            color: white;
+            display: inline-block;
+            padding: 3px;
+        }
+    </style>
+
+    <script>
+        var watcher;
+
+        function createWatcher() {
+            watcher = new DOMElementWatcher();
+            document.querySelector('#moreButtons').style.display = 'inline';
+            document.querySelector('#createButton').disabled = true;
+            appendMessage('watcher created');
+        }
+
+        function watchDivs() {
+            watcher.when('div', -1, function (element) {
+                element.style.background = 'blue';
+                element.innerHTML = 'this element was changed to BLUE by DOMElementWatcher'
+            });
+            appendMessage('started watching for div elements');
+        }
+
+        function appendDiv(text, background) {
+            appendToPage('div', text, background)
+        }
+
+        function appendMessage(text) {
+            appendToPage('span', text + '<br />', '')
+        }
+
+        function appendToPage(tag, innerHTML, background) {
+            var elem = document.createElement(tag);
+            elem.style.background = background;
+            elem.innerHTML = innerHTML;
+            document.body.appendChild(elem);
+        }
+
+        function newDiv() {
+            appendDiv('this element was added dynamically with a red background', 'red');
+        }
+
+        function pause() {
+            watcher.pause();
+            appendMessage('watcher paused');
+        }
+
+        function resume() {
+            watcher.resume();
+            appendMessage('watcher unpaused');
+        }
+
+        function stop() {
+            watcher.stop();
+            appendMessage('watcher stopped');
+        }
+    </script>
+</head>
+<body>
+<h1>dom-element-watcher demo</h1>
+
+<span id="buildFirst">
+    Please run <code>npm install && npm run build</code> before loading this page!
+</span>
+
+<span id="main">
+    <p>Try playing around with the API by clicking the buttons below</p>
+
+    <button onclick="newDiv()">Add RED div to page</button>
+    <button id="createButton" onclick="createWatcher()">create DOMElementWatcher</button>
+    <span id="moreButtons">
+        <button onclick="watchDivs()">watcher.when()</button>
+        <button onclick="pause()">watcher.pause();</button>
+        <button onclick="resume()">watcher.resume();</button>
+        <button onclick="stop()">watcher.stop();</button>
+    </span>
+
+    <hr/>
+    <div style="background: green">this element was originally on the page with a green background</div>
+</span>
+</body>
+<script>
+    if (typeof DOMElementWatcher !== 'undefined') {
+        document.querySelector('#buildFirst').style.display = 'none';
+        document.querySelector('#main').style.display = 'block';
+    }
+</script>
+</html>
