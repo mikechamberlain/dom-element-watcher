@@ -94,4 +94,4 @@ npm run build
 
 ## See also
 
-The [mutation-summary](https://github.com/rafaelw/mutation-summary) might also be of interest.  It's much bigger but has lots more features, and gives you a full breakdown of exactly how the DOM changed.
+The [mutation-summary](https://github.com/rafaelw/mutation-summary) library might also be of interest.  It's a lot larger and more complex, but has way more features and gives you a full breakdown of exactly how the DOM changed.
