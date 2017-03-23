@@ -51,7 +51,11 @@
         function watchDivs() {
             watcher.when('div', -1, function (element) {
                 element.style.background = 'blue';
-                element.innerHTML = 'this element was changed to BLUE by DOMElementWatcher'
+                element.innerHTML = 'DOMElementWatcher changed this element\'s background to BLUE '
+            });
+            watcher.when('div', -1, function (element) {
+                element.style.border = '4px solid green';
+                element.innerHTML += ' and its border to GREEN'
             });
             appendMessage('started watching for div elements');
         }
@@ -99,7 +103,7 @@
 </span>
 
 <span id="main">
-    <p>Try playing around with the API by clicking the buttons below</p>
+    <p>Try playing with the API by clicking the buttons below</p>
 
     <button onclick="newDiv()">Add RED div to page</button>
     <button id="createButton" onclick="createWatcher()">create DOMElementWatcher</button>

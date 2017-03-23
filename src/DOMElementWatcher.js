@@ -3,7 +3,9 @@
      * Watches for DOM elements, invoking a callback if and when they become available.
      */
     window.DOMElementWatcher = function () {
+        var CALLBACK_KEY = '__DOMElementWatcherCallbackID__';
         var MODIFIED_KEY = '__DOMElementWatcherModified__';
+        var callbackId = 0;
         var observed = [];
         var observer = new MutationObserver(tryInvokeAll);
         var watching = true;
@@ -40,6 +42,9 @@
                 return;
             }
 
+            // tag the callback if we haven't seen it before
+            callback[CALLBACK_KEY] = callback[CALLBACK_KEY] || callbackId++;
+
             // store to check against future DOM mutations
             observed.push({
                 selector: selector,
@@ -69,13 +74,15 @@
                 if (index >= 0 && index !== i) {
                     continue;
                 }
+
                 // make sure we invoke the callback on this element only once per selector per callback
-                if (element[MODIFIED_KEY] && element[MODIFIED_KEY][selector] && element[MODIFIED_KEY][selector][callback]) {
+                var callbackId = callback[CALLBACK_KEY];
+                if (element[MODIFIED_KEY] && element[MODIFIED_KEY][selector] && element[MODIFIED_KEY][selector][callbackId]) {
                     continue;
                 }
                 element[MODIFIED_KEY] = element[MODIFIED_KEY] || {};
                 element[MODIFIED_KEY][selector] = element[MODIFIED_KEY][selector] || {};
-                element[MODIFIED_KEY][selector][callback] = element[MODIFIED_KEY][selector][callback] || true;
+                element[MODIFIED_KEY][selector][callbackId] = true;
 
                 if (paused) {
                     continue;
