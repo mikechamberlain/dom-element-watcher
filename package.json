@@ -1,6 +1,6 @@
 {
   "name": "dom-element-watcher",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "A super simple library that watches for changes to the DOM",
   "main": "dist/DOMElementWatcher.js",
   "repository" : {
@@ -25,6 +25,6 @@
   "devDependencies": {
     "browserify": "^13.1.1",
     "uglify-js": "^2.7.4",
-    "webcomponents.js": "git+https://github.com/webcomponents/webcomponentsjs.git"
+    "webcomponents.js": "git+https://github.com/webcomponents/webcomponentsjs.git#v0.7.24"
   }
 }
