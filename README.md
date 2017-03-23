@@ -18,8 +18,8 @@ Then add a reference to one of:
 ```bash
 ./node_modules/dom-element-watcher/dist/DOMElementWatcher.js             # native (~4KB)
 ./node_modules/dom-element-watcher/dist/DOMElementWatcher.min.js         # native, minified (<1KB)
-./node_modules/dom-element-watcher/dist/DOMElementWatcher.IE9-10.js      # polyfilled for old IE (~25KB)
-./node_modules/dom-element-watcher/dist/DOMElementWatcher.IE9-10.min.js  # polyfilled for old IE, minified (~7KB)
+./node_modules/dom-element-watcher/dist/DOMElementWatcher.IE9-10.js      # polyfilled for old IE (~17KB)
+./node_modules/dom-element-watcher/dist/DOMElementWatcher.IE9-10.min.js  # polyfilled for old IE, minified (~6KB)
 ```
 
 eg:

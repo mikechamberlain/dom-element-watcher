@@ -1,29 +1,26 @@
 {
   "name": "dom-element-watcher",
-  "version": "1.0.27",
+  "version": "1.0.28",
   "description": "A super simple library that watches for changes to the DOM",
   "main": "dist/DOMElementWatcher.js",
-  "repository" : {
-    "type" : "git",
-    "url" : "https://github.com/mikechamberlain/dom-element-watcher.git"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mikechamberlain/dom-element-watcher.git"
   },
   "scripts": {
-    "browserify-polyfill": "$(npm bin)/browserify ./src/DOMElementWatcher.IE9-10.js > ./dist/DOMElementWatcher.IE9-10.js",
+    "concat-polyfill": "$(npm bin)/concat-cli -f 'node_modules/webcomponents.js/MutationObserver.js' 'src/DOMElementWatcher.js' -o 'dist/DOMElementWatcher.IE9-10.js'",
     "minify-polyfill": "$(npm bin)/uglifyjs ./dist/DOMElementWatcher.IE9-10.js --mangle --compress > ./dist/DOMElementWatcher.IE9-10.min.js",
-    "build-polyfill": "npm run browserify-polyfill && npm run minify-polyfill",
-
+    "build-polyfill": "npm run concat-polyfill && npm run minify-polyfill",
     "minify-native": "$(npm bin)/uglifyjs ./dist/DOMElementWatcher.js --mangle --compress > ./dist/DOMElementWatcher.min.js",
     "build-native": "cp ./src/DOMElementWatcher.js ./dist && npm run minify-native",
-
     "clean": "rm -rf ./dist && mkdir -p ./dist",
     "build": "npm run clean && npm run build-polyfill && npm run build-native",
-
     "prepublish": "npm run build"
   },
   "author": "Mike Chamberlain",
   "license": "BSD-2-Clause",
   "devDependencies": {
-    "browserify": "^13.1.1",
+    "concat-cli": "^4.0.0",
     "uglify-js": "^2.7.4",
     "webcomponents.js": "git+https://github.com/webcomponents/webcomponentsjs.git#v0.7.24"
   }
